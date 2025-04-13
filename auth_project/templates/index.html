@@ -1,0 +1,324 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParaSekreterim - Ana Sayfa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .hero-section {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+        }
+        .btn-light {
+            background-color: #fff;
+            color: #4CAF50;
+            border: none;
+        }
+        .btn-light:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-wallet me-2"></i>ParaSekreterim
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Giriş Yap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Üye Ol</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center py-5">
+        <div class="container">
+            <h1 class="display-4">ParaSekreterim'e Hoş Geldiniz!</h1>
+            <p class="lead">Finansal yönetiminizi kolaylaştıran modern bir uygulama.</p>
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg mt-3">Hemen Başlayın</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                    <h4>Gelir ve Gider Takibi</h4>
+                    <p>Gelir ve giderlerinizi kolayca takip edin ve bütçenizi yönetin. Harcamalarınızı kategorilere ayırarak daha iyi analiz edin.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-bullseye fa-3x mb-3"></i>
+                    <h4>Hedef Bazlı Harcama</h4>
+                    <p>Hedeflerinize ulaşmak için harcamalarınızı planlayın. Kişisel hedefler belirleyin ve bunlara ulaşmak için bütçenizi optimize edin.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-piggy-bank fa-3x mb-3"></i>
+                    <h4>Biriktirme Planı</h4>
+                    <p>Geleceğiniz için birikim yapın ve finansal güvenliğinizi sağlayın. Otomatik birikim planları oluşturun ve tasarruflarınızı artırın.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2><i class="fas fa-info-circle me-2"></i>Biz Kimiz?</h2>
+                    <p>ParaSekreterim, finansal yönetiminizi kolaylaştırmak için tasarlanmış bir uygulamadır. Gelir ve giderlerinizi takip edin, bütçenizi yönetin ve finansal hedeflerinize ulaşın.</p>
+                    <p>Galatasaray Üniversitesi öğrencileri Nazlıcan Bal, Munzur Cankat Kiper ve Sultan Özdemir tarafından geliştirilmiştir.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'img/about_us.jpg' %}" class="img-fluid" alt="About Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Ekibimiz</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'img/nazlican.jpg' %}" class="rounded-circle mb-3" alt="Nazlıcan Bal">
+                    <h5>Nazlıcan Bal</h5>
+                    <p>Geliştirici</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'img/munzur.jpg' %}" class="rounded-circle mb-3" alt="Munzur Cankat Kiper">
+                    <h5>Munzur Cankat Kiper</h5>
+                    <p>Geliştirici</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'img/sultan.jpg' %}" class="rounded-circle mb-3" alt="Sultan Özdemir">
+                    <h5>Sultan Özdemir</h5>
+                    <p>Geliştirici</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Sıkça Sorulan Sorular</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            Para Sekreterim uygulaması ne işe yarar?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Para Sekreterim, tüm finansal hayatınızı tek bir uygulama üzerinden yönetmenize yardımcı olur. Gelir gider takibi yapabilir, harcamalarınızı kategorize edebilir, tasarruf hedefleri koyabilir ve finansal hedeflerinize ulaşmanızda size rehberlik eder.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Uygulama ücretsiz mi?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Evet! Para Sekreterim uygulamasını tamamen ücretsiz bir şekilde indirebilir ve temel özelliklerini kullanabilirsiniz. Ayrıca, premium özellikler için uygun fiyatlı bir abonelik seçeneğimiz de mevcut.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            Verilerim güvende mi?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Evet, kullanıcı verileriniz %100 güvenli. Uygulamamız, güçlü şifreleme ve güvenlik protokollerini kullanarak kişisel verilerinizi korur. Üçüncü şahıslarla veri paylaşılmamaktadır.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                            Hedeflerimi nasıl oluşturabilirim?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Hedef oluşturmak çok kolay! Uygulama içinde istediğiniz hedefi tanımlayabilir, örneğin belirli bir miktar tasarruf etmek veya bir ürünü almak için gerekli parayı biriktirmek gibi. Sistem, ilerlemenizi takip eder ve hedefinize ulaştığınızda sizi bilgilendirir.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                            Harcamalarımı nasıl takip edebilirim?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Gelir ve giderlerinizi manuel olarak veya düzenli ödeme bilgilerinizle sisteme girebilirsiniz. Uygulama, harcamalarınızı kategorilere ayırarak size düzenli raporlar sunar. Ayrıca, hedeflerinizle uyumlu harcamalar yapmanızı teşvik eder.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                            Uygulama farklı dillerde kullanılabilir mi?
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Evet! Para Sekreterim, birden fazla dilde kullanılabilir. Dil seçenekleri arasından istediğiniz dili seçebilir ve uygulamayı tercih ettiğiniz dilde kullanabilirsiniz.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven">
+                            Gece modu ve aydınlık modunu nasıl değiştirebilirim?
+                        </button>
+                    </h2>
+                    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Uygulama, kullanıcı deneyimini kişiselleştirebilmek için gece modu, aydınlık mod ve karanlık mod seçeneklerini sunuyor. Bu modlar arasında kolayca geçiş yapabilir ve gözlerinize en uygun modu seçebilirsiniz.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight">
+                            Para Sekreterim'i nasıl kullanmaya başlayabilirim?
+                        </button>
+                    </h2>
+                    <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Uygulamayı indirip hızlıca üye olduktan sonra ilk adım olarak toplam paranızı ve düzenli gelir/giderlerinizi sisteme girebilirsiniz. Ardından, harcamalarınızı kategorize etmeye ve hedeflerinizi belirlemeye başlayabilirsiniz. Uygulama, size adım adım rehberlik edecektir.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine">
+                            Yorum ve geri bildirim gönderebilir miyim?
+                        </button>
+                    </h2>
+                    <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Tabii! Para Sekreterim'i kullanarak memnuniyetinizi ya da önerilerinizi bizimle paylaşabilirsiniz. Uygulama içindeki "Geri Bildirim Gönder" bölümünden yorum yapabilir ve uygulamayı daha iyi hale getirmek için katkıda bulunabilirsiniz.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTen">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen">
+                            Uygulamayı birden fazla cihazda kullanabilir miyim?
+                        </button>
+                    </h2>
+                    <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Evet, Para Sekreterim uygulamasını birden fazla cihazda kullanabilirsiniz. Hesabınızla giriş yaptıktan sonra tüm verileriniz otomatik olarak senkronize edilir.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="bg-dark text-white py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Bizimle İletişime Geçin</h2>
+            <p class="text-center">Herhangi bir sorunuz veya geri bildiriminiz için bize ulaşın: <a href="mailto:parasekreterim@gmail.com" class="text-white">parasekreterim@gmail.com</a></p>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Geri Bildirimler</h2>
+            <div class="row">
+                <!-- Example Feedback Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Ahmet Yılmaz</h5>
+                            <p class="card-text">⭐⭐⭐⭐⭐</p>
+                            <p class="card-text">Bu uygulama harika! Finansal yönetimim çok daha kolaylaştı.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- More feedback cards can be added here -->
+            </div>
+
+            <!-- Comment Form -->
+            <div class="mt-4">
+                <h4>Sen de deneyimini paylaş!</h4>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Adınız</label>
+                        <input type="text" class="form-control" id="name" placeholder="Anonim">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Yıldız Puanı</label>
+                        <div>
+                            <span>⭐⭐⭐⭐⭐</span> <!-- This can be made interactive with JavaScript -->
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Yorumunuz</label>
+                        <textarea class="form-control" id="comment" rows="3" maxlength="300"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2023 ParaSekreterim. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Dosyaları -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
