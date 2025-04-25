@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center mb-0">
+                        <i class="fas fa-home me-2"></i>Hoş Geldiniz!
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-circle fa-4x text-primary mb-3"></i>
+                        <h4>Merhaba, {{ user.username }}!</h4>
+                        <p class="text-muted">ParaSekreterim'e hoş geldiniz.</p>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                                    <h5>E-posta Adresiniz</h5>
+                                    <p class="mb-0">{{ user.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
+                                    <h5>Üyelik Tarihi</h5>
+                                    <p class="mb-0">{{ user.date_joined|date:"d.m.Y" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#featuresModal">
+                            <i class="fas fa-info-circle me-2"></i>Uygulama Özellikleri
+                        </button>
+                        <a href="{% url 'logout' %}" class="btn btn-danger">
+                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Özellikler Modal -->
+<div class="modal fade" id="featuresModal" tabindex="-1" aria-labelledby="featuresModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="featuresModalLabel">
+                    <i class="fas fa-star me-2"></i>ParaSekreterim Özellikleri
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-primary mb-3">Genel Bakış</h4>
+                <p class="mb-4">
+                    Kişi başına düşen kredi kartı sayısının ülkemizde yaklaşık 5, globalde yaklaşık 3 olduğu ve para yönetiminin her geçen gün daha da zorlaştığı günümüz dünyasında tek bir uygulama üzerinden bütün paranızı, harcamalarınızı, gelir/gider dengenizi, döviz kurlarını, finans haberlerini takip edebildiğiniz ve kendinize koyduğunuz ekonomik hedeflerinizi gerçekleştirmede yardım sağlayan bir finans yönetimi aracıdır.
+                </p>
+                <p class="mb-4">
+                    Uygulamanın amacı, kullanıcının gelir giderlerini düzenli bir şekilde kaydetmesini sağlayarak kullanıcıda ekonomisi hakkında farkındalık oluşturmak, kullanıcının tasarruf ve yatırım yapmasına yardımcı olmak.
+                </p>
+
+                <h4 class="text-primary mb-3">Temel Özellikler</h4>
+                
+                <div class="feature-section mb-4">
+                    <h5 class="text-secondary">
+                        <i class="fas fa-chart-line me-2"></i>Gelir Gider Takibi
+                    </h5>
+                    <ul class="list-unstyled ps-4">
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcıdan üyelik aşamasında güncel toplam para miktarı istenir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Varsa düzenli gelir ve gider bilgileri talep edilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı, harcamalarını ve gelirlerini manuel olarak kategori bazlı sisteme girebilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Sisteme girilen verilerle birlikte günlük, haftalık ve aylık gelir gider tabloları oluşturulur.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı, belirli bir dönem için harcamalarının analizini görüntüleyebilir.</li>
+                    </ul>
+                </div>
+
+                <div class="feature-section mb-4">
+                    <h5 class="text-secondary">
+                        <i class="fas fa-bullseye me-2"></i>Hedef Bazlı Harcama
+                    </h5>
+                    <ul class="list-unstyled ps-4">
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı, almak istediği bir ürünü sisteme ekleyerek bu ürünü belirlenen şartlar gerçekleştiğinde alabileceği bir sistem kurabilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı, tarih ve miktar bazlı tasarruf hedefleri belirleyebilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Belirlenen hedeflerin ilerleme durumu sistem üzerinden takip edilebilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Hedeflere ulaşılma oranına göre motivasyon bildirimleri gönderilebilir.</li>
+                    </ul>
+                </div>
+
+                <div class="feature-section">
+                    <h5 class="text-secondary">
+                        <i class="fas fa-piggy-bank me-2"></i>Tasarruf Planlaması
+                    </h5>
+                    <ul class="list-unstyled ps-4">
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı, harcamalarını ayırdığı kategorilere göre limit belirleyebilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcı belirlediği limitleri aştığında uygulama tarafından uyarı bildirimi alır.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Tasarruf oranları, belirli zaman aralıklarında raporlanabilir.</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Kullanıcıya, harcama alışkanlıklarını değiştirmesi için kişisel tasarruf önerileri sunulabilir.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
