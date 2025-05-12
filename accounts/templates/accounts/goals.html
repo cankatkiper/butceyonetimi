@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title"><i class="fas fa-bullseye me-2"></i>Finansal Hedeflerim</h2>
+                <p class="text-muted mb-4">Tasarruf hedeflerinizi ve satın almak istediğiniz ürünleri planlayın.</p>
+                
+                <ul class="nav nav-tabs mb-4" id="goalsTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="saving-tab" data-bs-toggle="tab" data-bs-target="#saving" type="button" role="tab" aria-controls="saving" aria-selected="true">
+                            <i class="fas fa-piggy-bank me-1"></i>Tasarruf Hedefleri
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase" aria-selected="false">
+                            <i class="fas fa-shopping-cart me-1"></i>Satın Alma Hedefleri
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="goalsTabContent">
+                    <!-- Tasarruf Hedefleri -->
+                    <div class="tab-pane fade show active" id="saving" role="tabpanel" aria-labelledby="saving-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4>Tasarruf Hedeflerim</h4>
+                            <a href="{% url 'add_saving_goal' %}" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-1"></i>Tasarruf Hedefi Ekle
+                            </a>
+                        </div>
+                        
+                        {% if saving_goals %}
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                {% for goal in saving_goals %}
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ goal.name }}</h5>
+                                            
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-muted">İlerleme</small>
+                                                    <small class="text-muted">{{ goal.progress_percentage|floatformat:1 }}%</small>
+                                                </div>
+                                                <div class="progress mt-1" style="height: 8px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" 
+                                                        style="width: {{ goal.progress_percentage|floatformat:0 }}%" 
+                                                        aria-valuenow="{{ goal.progress_percentage|floatformat:0 }}" 
+                                                        aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Mevcut Tutar:</span>
+                                                <span class="fw-bold">{{ goal.current_amount|floatformat:2 }} ₺</span>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Hedef Tutar:</span>
+                                                <span class="fw-bold">{{ goal.target_amount|floatformat:2 }} ₺</span>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Hedef Tarih:</span>
+                                                <span class="fw-bold">{{ goal.target_date }}</span>
+                                            </div>
+                                            
+                                            <button class="btn btn-sm btn-outline-primary w-100">
+                                                <i class="fas fa-coins me-1"></i>Para Ekle
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-piggy-bank fa-4x text-muted mb-3"></i>
+                                <h5>Henüz Tasarruf Hedefiniz Yok</h5>
+                                <p class="text-muted">Geleceğe yatırım yapmak için yeni bir tasarruf hedefi oluşturun.</p>
+                                <a href="{% url 'add_saving_goal' %}" class="btn btn-primary mt-2">
+                                    <i class="fas fa-plus-circle me-1"></i>Tasarruf Hedefi Ekle
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Satın Alma Hedefleri -->
+                    <div class="tab-pane fade" id="purchase" role="tabpanel" aria-labelledby="purchase-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4>Satın Alma Hedeflerim</h4>
+                            <a href="{% url 'add_purchase_goal' %}" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-1"></i>Satın Alma Hedefi Ekle
+                            </a>
+                        </div>
+                        
+                        {% if purchase_goals %}
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                {% for goal in purchase_goals %}
+                                <div class="col">
+                                    <div class="card h-100 {% if goal.can_purchase %}border-success{% endif %}">
+                                        {% if goal.can_purchase %}
+                                        <div class="card-header bg-success text-white">
+                                            <i class="fas fa-check-circle me-1"></i>Alışveriş Zamanı!
+                                        </div>
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ goal.name }}</h5>
+                                            
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Fiyat:</span>
+                                                <span class="fw-bold">{{ goal.price|floatformat:2 }} ₺</span>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Varlığınıza Oranı:</span>
+                                                <span class="fw-bold">%{{ goal.price|floatformat:2 }} / {{ user.total_amount|floatformat:2 }} ₺</span>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Tetikleme Yüzdesi:</span>
+                                                <span class="fw-bold">%{{ goal.trigger_percentage|floatformat:2 }}</span>
+                                            </div>
+                                            
+                                            {% if goal.can_purchase %}
+                                                <button class="btn btn-sm btn-success w-100">
+                                                    <i class="fas fa-shopping-cart me-1"></i>Satın Alındı Olarak İşaretle
+                                                </button>
+                                            {% else %}
+                                                <button class="btn btn-sm btn-outline-secondary w-100" disabled>
+                                                    <i class="fas fa-clock me-1"></i>Henüz Uygun Değil
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                                <h5>Henüz Satın Alma Hedefiniz Yok</h5>
+                                <p class="text-muted">Almak istediğiniz ürünleri planlayarak bilinçli alışveriş yapın.</p>
+                                <a href="{% url 'add_purchase_goal' %}" class="btn btn-primary mt-2">
+                                    <i class="fas fa-plus-circle me-1"></i>Satın Alma Hedefi Ekle
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
