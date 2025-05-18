@@ -1,0 +1,85 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Finansal Raporlar</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Finansal durumunuzu analiz edin.</h4>
+                    <p>Bu sayfada, gelir ve giderlerinizin detaylı raporlarını görebilir ve analiz edebilirsiniz.</p>
+                    <canvas id="financialReportChart" width="400" height="200"></canvas>
+                    <button class="btn btn-outline-primary mt-3" id="generateReportButton">Rapor Oluştur</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Report Generation -->
+    <div class="modal fade" id="reportModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rapor Oluştur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportForm">
+                        <div class="mb-3">
+                            <label for="reportType" class="form-label">Rapor Türü</label>
+                            <select class="form-select" id="reportType" required>
+                                <option value="monthly">Aylık</option>
+                                <option value="yearly">Yıllık</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Oluştur</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('financialReportChart').getContext('2d');
+    const financialReportChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'],
+            datasets: [{
+                label: 'Gelir',
+                data: [1200, 1500, 1800, 2000, 1700, 1600],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }, {
+                label: 'Gider',
+                data: [1000, 1400, 1600, 1900, 1500, 1400],
+                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Aylık Gelir ve Gider Raporu'
+                }
+            }
+        }
+    });
+
+    document.getElementById('generateReportButton').addEventListener('click', function() {
+        const reportModal = new bootstrap.Modal(document.getElementById('reportModal'));
+        reportModal.show();
+    });
+
+    document.getElementById('reportForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Handle report generation logic here
+    });
+</script>
+{% endblock %} 

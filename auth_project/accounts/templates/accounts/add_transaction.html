@@ -1,0 +1,167 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">
+                    {% if transaction_type == 'gelir' %}
+                    <i class="fas fa-plus-circle text-success me-2"></i>Gelir Ekle
+                    {% else %}
+                    <i class="fas fa-minus-circle text-danger me-2"></i>Gider Ekle
+                    {% endif %}
+                </h2>
+                <p class="text-muted mb-4">
+                    {% if transaction_type == 'gelir' %}
+                    Yeni bir gelir işlemi kaydedin.
+                    {% else %}
+                    Yeni bir gider işlemi kaydedin.
+                    {% endif %}
+                </p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">Kategori</label>
+                        {{ form.category }}
+                        <div class="form-text">İsterseniz kategorilerden seçin veya aşağıya yeni bir kategori girin.</div>
+                        {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.new_category.id_for_label }}" class="form-label">{{ form.new_category.label }}</label>
+                        {{ form.new_category }}
+                        <div class="form-text">Yeni bir kategori eklemek istiyorsanız yazın, yoksa kategori listesinden seçin.</div>
+                        {% if form.new_category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.new_category.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.amount.id_for_label }}" class="form-label">Miktar (₺)</label>
+                        {{ form.amount }}
+                        {% if form.amount.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.amount.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">Açıklama</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.description.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.date.id_for_label }}" class="form-label">Tarih</label>
+                        {{ form.date }}
+                        {% if form.date.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.date.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4 form-check">
+                        {{ form.is_regular }}
+                        <label class="form-check-label" for="{{ form.is_regular.id_for_label }}">
+                            Düzenli İşlem (Maaş, kira vb.)
+                        </label>
+                        {% if form.is_regular.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.is_regular.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'income_expense' %}" class="btn btn-outline-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn {% if transaction_type == 'gelir' %}btn-success{% else %}btn-danger{% endif %}">
+                            {% if transaction_type == 'gelir' %}
+                            <i class="fas fa-plus-circle me-1"></i>Gelir Ekle
+                            {% else %}
+                            <i class="fas fa-minus-circle me-1"></i>Gider Ekle
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Yeni kategori girildiğinde kategori seçimini devre dışı bırak
+    function toggleCategoryField(input) {
+        const categorySelect = document.getElementById('{{ form.category.id_for_label }}');
+        if (input.value.trim() !== '') {
+            categorySelect.disabled = true;
+            categorySelect.required = false;
+            categorySelect.classList.add('bg-light');
+        } else {
+            categorySelect.disabled = false;
+            categorySelect.required = true;
+            categorySelect.classList.remove('bg-light');
+        }
+    }
+    
+    // Kategori seçildiğinde yeni kategori giriş alanını devre dışı bırak
+    function toggleNewCategoryField(select) {
+        const newCategoryInput = document.getElementById('{{ form.new_category.id_for_label }}');
+        if (select.value !== '') {
+            newCategoryInput.disabled = true;
+            newCategoryInput.classList.add('bg-light');
+        } else {
+            newCategoryInput.disabled = false;
+            newCategoryInput.classList.remove('bg-light');
+        }
+    }
+    
+    // Sayfa yüklendiğinde durumu kontrol et
+    document.addEventListener('DOMContentLoaded', function() {
+        const categorySelect = document.getElementById('{{ form.category.id_for_label }}');
+        const newCategoryInput = document.getElementById('{{ form.new_category.id_for_label }}');
+        
+        // Kategori seçim kutusunun varsayılan required özelliğini false yap
+        categorySelect.required = false;
+        
+        // Başlangıçta birini seçili ise diğerini devre dışı bırak
+        if (newCategoryInput.value.trim() !== '') {
+            categorySelect.disabled = true;
+            categorySelect.required = false;
+            categorySelect.classList.add('bg-light');
+        } else if (categorySelect.value !== '') {
+            newCategoryInput.disabled = true;
+            newCategoryInput.classList.add('bg-light');
+        }
+    });
+</script>
+{% endblock %}
+ 

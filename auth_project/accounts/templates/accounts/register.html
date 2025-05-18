@@ -1,0 +1,199 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-user-plus me-2"></i>Hesap Oluştur</h2>
+            </div>
+            
+            <div class="login-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-floating mb-3">
+                        {{ form.username|safe }}
+                        <label for="{{ form.username.id_for_label }}">Kullanıcı Adı</label>
+                        {% if form.username.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.username.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        {{ form.email|safe }}
+                        <label for="{{ form.email.id_for_label }}">E-posta Adresi</label>
+                        {% if form.email.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.email.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        {{ form.password1|safe }}
+                        <label for="{{ form.password1.id_for_label }}">Şifre</label>
+                        <div class="form-text mt-1">
+                            Şifreniz en az 8 karakter uzunluğunda olmalı, harf ve rakam içermelidir.
+                        </div>
+                        {% if form.password1.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.password1.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        {{ form.password2|safe }}
+                        <label for="{{ form.password2.id_for_label }}">Şifre (Tekrar)</label>
+                        {% if form.password2.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.password2.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-login">
+                            <i class="fas fa-user-plus me-1"></i>Kayıt Ol
+                        </button>
+                    </div>
+                    
+                    <div class="login-footer">
+                        <p>Zaten hesabınız var mı? <a href="{% url 'login' %}" class="register-link">Giriş Yap</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #2ecc71;
+    --secondary-color: #27ae60;
+    --accent-color: #3498db;
+    --text-color: #2c3e50;
+    --light-bg: #f8f9fa;
+    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 2rem 1rem;
+}
+
+.login-card-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+}
+
+.login-header {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.login-header h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.75rem;
+}
+
+.login-body {
+    padding: 2.5rem;
+}
+
+.form-floating .form-control {
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+}
+
+.form-floating label {
+    padding: 1rem 0.75rem;
+}
+
+.form-floating .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
+}
+
+.btn-login {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #6c757d;
+}
+
+.register-link {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.register-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.form-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+@media (max-width: 576px) {
+    .login-body {
+        padding: 1.5rem;
+    }
+    
+    .login-header {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %} 

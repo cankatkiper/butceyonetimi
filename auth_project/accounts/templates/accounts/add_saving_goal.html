@@ -1,0 +1,65 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <i class="fas fa-piggy-bank text-primary me-2"></i>Tasarruf Hedefi Ekle
+                </h2>
+                <p class="text-muted mb-4">
+                    Gelecekteki finansal hedefleriniz için tasarruf planı oluşturun.
+                </p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">Hedef Adı</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.target_amount.id_for_label }}" class="form-label">Hedef Miktar (₺)</label>
+                        {{ form.target_amount }}
+                        {% if form.target_amount.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.target_amount.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.target_date.id_for_label }}" class="form-label">Hedef Tarih</label>
+                        {{ form.target_date }}
+                        {% if form.target_date.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.target_date.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'goals' %}" class="btn btn-outline-secondary me-md-2">İptal</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-1"></i>Hedef Ekle
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

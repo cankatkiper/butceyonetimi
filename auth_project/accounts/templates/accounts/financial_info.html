@@ -1,0 +1,51 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-3">
+                    <i class="fas fa-wallet me-2"></i>Finansal Bilgileriniz
+                </h2>
+                <p class="text-muted text-center mb-4">
+                    Para Sekreterim uygulamasını kişiselleştirmek için finansal bilgilerinizi girin.
+                </p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.total_amount.id_for_label }}" class="form-label">Toplam Paranız (₺)</label>
+                        {{ form.total_amount }}
+                        <div class="form-text">Hesaplarınız, nakit ve diğer likit varlıklarınızın toplam değerini girin.</div>
+                        {% if form.total_amount.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.total_amount.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-check-circle me-1"></i>Devam Et
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-shield-alt me-2"></i>Veri Güvenliği</h5>
+                <p class="text-muted mb-0">
+                    Para Sekreterim, finansal verilerinizi güvenle saklar ve sadece size görüntüler.
+                    Verileriniz şifrelenir ve üçüncü taraflarla paylaşılmaz.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

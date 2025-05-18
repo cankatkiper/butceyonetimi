@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Ayarlar</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Uygulama Ayarları</h4>
+                    <p>Bu sayfada, uygulama ayarlarınızı yönetebilirsiniz.</p>
+                    <form id="settingsForm">
+                        <div class="mb-3">
+                            <label for="currency" class="form-label">Para Birimi</label>
+                            <select class="form-select" id="currency" required>
+                                <option value="TRY">Türk Lirası (TRY)</option>
+                                <option value="USD">Amerikan Doları (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="language" class="form-label">Dil</label>
+                            <select class="form-select" id="language" required>
+                                <option value="tr">Türkçe</option>
+                                <option value="en">İngilizce</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('settingsForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Handle settings update logic here
+    });
+</script>
+{% endblock %} 

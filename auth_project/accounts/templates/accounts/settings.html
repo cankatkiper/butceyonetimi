@@ -1,0 +1,357 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title"><i class="fas fa-cog me-2"></i>Hesap Ayarları</h2>
+                <p class="text-muted mb-4">Hesap bilgilerinizi ve tercihlerinizi yönetin.</p>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">
+                                <i class="fas fa-user me-2"></i>Profil Bilgileri
+                            </button>
+                            <button class="nav-link" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab" aria-controls="v-pills-password" aria-selected="false">
+                                <i class="fas fa-lock me-2"></i>Şifre Değiştir
+                            </button>
+                            <button class="nav-link" id="v-pills-categories-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categories" type="button" role="tab" aria-controls="v-pills-categories" aria-selected="false">
+                                <i class="fas fa-tags me-2"></i>Kategoriler
+                            </button>
+                            <button class="nav-link" id="v-pills-notifications-tab" data-bs-toggle="pill" data-bs-target="#v-pills-notifications" type="button" role="tab" aria-controls="v-pills-notifications" aria-selected="false">
+                                <i class="fas fa-bell me-2"></i>Bildirim Ayarları
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <!-- Profil Bilgileri -->
+                            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <h4 class="mb-4">Profil Bilgileri</h4>
+                                
+                                <form method="post" action="#">
+                                    {% csrf_token %}
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="username" class="form-label">Kullanıcı Adı</label>
+                                                <input type="text" class="form-control" id="username" value="{{ user.username }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">E-posta</label>
+                                                <input type="email" class="form-control" id="email" value="{{ user.email }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="total_amount" class="form-label">Toplam Varlık</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="total_amount" value="{{ user.total_amount|floatformat:2 }}" step="0.01">
+                                            <span class="input-group-text">₺</span>
+                                        </div>
+                                        <div class="form-text">Toplam paranızı güncellemek istediğinizde buradan değiştirebilirsiniz.</div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i>Değişiklikleri Kaydet
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Şifre Değiştir -->
+                            <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="v-pills-password-tab">
+                                <h4 class="mb-4">Şifre Değiştir</h4>
+                                
+                                <form method="post" action="#">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="current_password" class="form-label">Mevcut Şifre</label>
+                                        <input type="password" class="form-control" id="current_password" required>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="new_password" class="form-label">Yeni Şifre</label>
+                                        <input type="password" class="form-control" id="new_password" required>
+                                        <div class="form-text">Şifreniz en az 8 karakter uzunluğunda olmalı ve harf, rakam içermelidir.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="confirm_password" class="form-label">Yeni Şifre (Tekrar)</label>
+                                        <input type="password" class="form-control" id="confirm_password" required>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-key me-1"></i>Şifreyi Değiştir
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Kategoriler -->
+                            <div class="tab-pane fade" id="v-pills-categories" role="tabpanel" aria-labelledby="v-pills-categories-tab">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h4>Kategoriler</h4>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                                        <i class="fas fa-plus-circle me-1"></i>Kategori Ekle
+                                    </button>
+                                </div>
+                                
+                                <ul class="nav nav-tabs" id="categoryTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="income-categories-tab" data-bs-toggle="tab" data-bs-target="#income-categories" type="button" role="tab">
+                                            <i class="fas fa-arrow-up me-1"></i>Gelir Kategorileri
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="expense-categories-tab" data-bs-toggle="tab" data-bs-target="#expense-categories" type="button" role="tab">
+                                            <i class="fas fa-arrow-down me-1"></i>Gider Kategorileri
+                                        </button>
+                                    </li>
+                                </ul>
+                                
+                                <div class="tab-content p-3 border border-top-0 rounded-bottom" id="categoryTabContent">
+                                    <div class="tab-pane fade show active" id="income-categories" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Kategori Adı</th>
+                                                        <th class="text-end">İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for category in income_categories %}
+                                                    <tr>
+                                                        <td>{{ category.name }}</td>
+                                                        <td class="text-end">
+                                                            <button type="button" class="btn btn-sm btn-outline-primary edit-category" 
+                                                                data-bs-toggle="modal" data-bs-target="#editCategoryModal"
+                                                                data-id="{{ category.id }}" 
+                                                                data-name="{{ category.name }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger delete-category" 
+                                                                data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
+                                                                data-id="{{ category.id }}" 
+                                                                data-name="{{ category.name }}">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="2" class="text-center">Henüz bir gelir kategorisi bulunmuyor.</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="expense-categories" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Kategori Adı</th>
+                                                        <th class="text-end">İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for category in expense_categories %}
+                                                    <tr>
+                                                        <td>{{ category.name }}</td>
+                                                        <td class="text-end">
+                                                            <button type="button" class="btn btn-sm btn-outline-primary edit-category" 
+                                                                data-bs-toggle="modal" data-bs-target="#editCategoryModal"
+                                                                data-id="{{ category.id }}" 
+                                                                data-name="{{ category.name }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger delete-category" 
+                                                                data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
+                                                                data-id="{{ category.id }}" 
+                                                                data-name="{{ category.name }}">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="2" class="text-center">Henüz bir gider kategorisi bulunmuyor.</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bildirimler -->
+                            <div class="tab-pane fade" id="v-pills-notifications" role="tabpanel" aria-labelledby="v-pills-notifications-tab">
+                                <h4 class="mb-4">Bildirim Ayarları</h4>
+                                
+                                <form method="post" action="#">
+                                    {% csrf_token %}
+                                    <div class="mb-3 form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="limit_notifications" checked>
+                                        <label class="form-check-label" for="limit_notifications">Limit aşımı bildirimleri</label>
+                                        <div class="form-text">Bir harcama limiti aşıldığında bildirim al.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="goal_notifications" checked>
+                                        <label class="form-check-label" for="goal_notifications">Hedef bildirimleri</label>
+                                        <div class="form-text">Tasarruf hedeflerine yaklaştığında veya ulaştığında bildirim al.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="purchase_notifications" checked>
+                                        <label class="form-check-label" for="purchase_notifications">Satın alma bildirimleri</label>
+                                        <div class="form-text">Bir ürün satın almak için belirlediğin kriterlere ulaşıldığında bildirim al.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="email_notifications">
+                                        <label class="form-check-label" for="email_notifications">E-posta bildirimleri</label>
+                                        <div class="form-text">Önemli bildirimleri e-posta adresine de gönder.</div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i>Ayarları Kaydet
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kategori Ekleme Modalı -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Yeni Kategori Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" action="{% url 'settings' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_category">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="category_name" class="form-label">Kategori Adı</label>
+                        <input type="text" class="form-control" id="category_name" name="category_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category_type" class="form-label">Kategori Tipi</label>
+                        <select class="form-select" id="category_type" name="category_type" required>
+                            <option value="gelir">Gelir</option>
+                            <option value="gider">Gider</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-success">Kategori Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Kategori Düzenleme Modalı -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">Kategori Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" action="{% url 'settings' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="edit_category">
+                <input type="hidden" id="edit_category_id" name="category_id">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="edit_category_name" class="form-label">Kategori Adı</label>
+                        <input type="text" class="form-control" id="edit_category_name" name="category_name" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Kategori Silme Modalı -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Kategori Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" action="{% url 'settings' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="delete_category">
+                <input type="hidden" id="delete_category_id" name="category_id">
+                <div class="modal-body">
+                    <p>
+                        "<span id="delete_category_name"></span>" kategorisini silmek istediğinize emin misiniz?
+                    </p>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-1"></i> Bir kategorinin kullanıldığı işlemler varsa, bu kategoriyi silemezsiniz.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-danger">Kategoriyi Sil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Kategori düzenleme modalını doldur
+    document.querySelectorAll('.edit-category').forEach(button => {
+        button.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-id');
+            const categoryName = this.getAttribute('data-name');
+            
+            document.getElementById('edit_category_id').value = categoryId;
+            document.getElementById('edit_category_name').value = categoryName;
+        });
+    });
+    
+    // Kategori silme modalını doldur
+    document.querySelectorAll('.delete-category').forEach(button => {
+        button.addEventListener('click', function() {
+            const categoryId = this.getAttribute('data-id');
+            const categoryName = this.getAttribute('data-name');
+            
+            document.getElementById('delete_category_id').value = categoryId;
+            document.getElementById('delete_category_name').innerText = categoryName;
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,50 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Finansal Bilgilerinizi Girin</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="total_amount">Şu anda toplam kaç liranız var?</label>
+            <input type="number" class="form-control" id="total_amount" name="total_amount" required>
+        </div>
+        <div class="form-group">
+            <label for="regular_income">Varsa düzenli gelirinizin kaç lira olduğunu ve ayın hangi günü bu geliri elde ettiğinizi belirtin.</label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="regular_income" name="regular_income">
+                <select class="form-select" id="income_day" name="income_day">
+                    <option value="" disabled selected>Gün</option>
+                    {% for day in days %}
+                        <option value="{{ day }}">{{ day }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="financial_goals">Finansal Hedefler</label>
+            <div id="goalsContainer"></div>
+            <button type="button" class="btn btn-secondary" id="addGoalButton">Ekle</button>
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('addGoalButton').addEventListener('click', function() {
+        const goalsContainer = document.getElementById('goalsContainer');
+        const newGoal = document.createElement('div');
+        newGoal.className = 'input-group mb-3';
+        newGoal.innerHTML = `
+            <select class="form-select">
+                <option value="1">x gün içerisinde y para biriktirmiş olmak.</option>
+                <option value="2">x gün sonra toplam paramın y olması.</option>
+            </select>
+            <input type="number" class="form-control" placeholder="x">
+            <input type="number" class="form-control" placeholder="y">
+        `;
+        goalsContainer.appendChild(newGoal);
+    });
+</script>
+{% endblock %} 
