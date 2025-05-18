@@ -1,0 +1,333 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="landing-container">
+    <section id="hero-section-custom" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Finansal Yaşamınız Kontrol Altında</h1>
+                    <p class="lead mb-4">Para Sekreterim ile gelir-giderlerinizi takip edin, hedeflerinizi planlayın ve finansal özgürlüğe adım atın.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Hemen Başla
+                        </a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-info-circle me-2"></i>Daha Fazla Bilgi
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex justify-content-center">
+                    <div class="hero-highlight-card">
+                        <div class="card-icon mb-3">
+                            <i class="fas fa-chart-pie fa-3x"></i>
+                        </div>
+                        <h3 class="mb-3">Finansal Özgürlüğünüz İçin</h3>
+                        <p>Harcamalarınızı kontrol altına alın, birikimlerinizi artırın ve finansal geleceğinizi planlayın.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section py-5 mt-5">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5">Özellikler</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Gelir Gider Takibi</h3>
+                        <p>Tüm finansal hareketlerinizi kategori bazlı takip edin, günlük, haftalık ve aylık raporlarla finansal durumunuzu analiz edin.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Hedef Bazlı Harcama</h3>
+                        <p>Almak istediğiniz ürünleri planlayın, belirlediğiniz şartlar gerçekleştiğinde bildirim alın ve bilinçli alışveriş yapın.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Tasarruf Planlaması</h3>
+                        <p>Harcama limitleri belirleyin, tasarruf hedefleri koyun ve geleceğinizi güvence altına almak için akıllıca planlama yapın.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonial-section py-5 mt-3">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5">Kullanıcı Yorumları</h2>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Para Sekreterim sayesinde artık giderlerimi çok daha iyi kontrol edebiliyorum. Tasarruf hedeflerime ulaşmam çok kolaylaştı."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="user-name">Ahmet Y.</div>
+                            <div class="user-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Finansal hedeflerime ulaşmak için ihtiyacım olan tam olarak böyle bir uygulamaydı. Kullanımı basit ve sonuçları çok etkili."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="user-name">Zeynep K.</div>
+                            <div class="user-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>"Aylardır kullanıyorum ve finansal alışkanlıklarım tamamen değişti. Artık nereye ne kadar harcadığımı biliyorum."</p>
+                        </div>
+                        <div class="testimonial-user">
+                            <div class="user-name">Mehmet A.</div>
+                            <div class="user-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #2ecc71;
+    --secondary-color: #27ae60;
+    --accent-color: #3498db;
+    --danger-color: #e74c3c;
+    --text-color: #2c3e50;
+    --light-bg: #f9f9f9;
+}
+
+.landing-container {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+#hero-section-custom {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color)) !important;
+    color: white !important;
+    padding: 6rem 0 !important;
+    border-radius: 0 0 20px 20px !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-highlight-card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 90%;
+    margin-top: 1.5rem;
+    transform: translateZ(0);
+}
+
+.card-icon {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.features-section {
+    padding: 3rem 0;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.testimonial-section {
+    background-color: var(--light-bg);
+    padding: 4rem 0;
+    border-radius: 20px;
+}
+
+.testimonial-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-content {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.testimonial-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.user-rating {
+    color: #f39c12;
+}
+
+.btn-light {
+    background-color: white;
+    color: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background-color: #f8f9fa;
+    color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-light {
+    color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    #hero-section-custom {
+        padding: 4rem 0 !important;
+        text-align: center;
+    }
+    
+    .hero-highlight-card {
+        margin: 2rem auto 0;
+    }
+    
+    .col-lg-6 .d-flex {
+        justify-content: center !important;
+    }
+    
+    .d-flex.gap-3 {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero-section-custom {
+        padding: 3rem 0 !important;
+    }
+    
+    .testimonial-section {
+        padding: 2rem 0;
+    }
+    
+    .btn-light, .btn-outline-light {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .d-flex.gap-3 {
+        flex-direction: column;
+    }
+}
+</style>
+{% endblock %} 
